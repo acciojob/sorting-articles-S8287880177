@@ -15,19 +15,15 @@ const bands = [
   'An Old Dog'
 ];
 
-// Remove leading articles for sorting
 function stripArticle(name) {
-  return name.replace(/^(a |an |the )/i, '').trim();
+  return name
+    .toLowerCase()
+    .replace(/^(a|an|the)\s+/, '')  // remove article + ANY spaces
+    .trim();
 }
 
-// Sort ignoring "a", "an", "the"
 bands.sort((a, b) => stripArticle(a).localeCompare(stripArticle(b)));
 
-// Insert into UL
 const ul = document.getElementById('band');
+ul.innerHTML = bands.map(band => `<li>${band}</li>`).join('');
 
-bands.forEach(band => {
-  const li = document.createElement('li');
-  li.textContent = band;
-  ul.appendChild(li);
-});
